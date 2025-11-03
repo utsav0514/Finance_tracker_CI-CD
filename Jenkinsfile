@@ -1,6 +1,11 @@
 pipeline {
     agent { label 'slave_one' }
 
+    environment {
+        // Make PATH available for all stages
+        PATH = "/usr/bin:/usr/local/bin:/home/vagrant/.docker/cli-plugins:$PATH"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -54,9 +59,6 @@ pipeline {
         }
 
         stage('Deploy Containers') {
-		environment {
-        PATH = "/usr/bin:/usr/local/bin:/home/vagrant/.docker/cli-plugins:$PATH"
-    }
             steps {
                 echo "Deploying containers using Docker Compose..."
                 sh '''
