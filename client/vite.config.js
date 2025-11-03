@@ -1,20 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
-    react(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: 'dist/index.html',
-          dest: '.', // place in dist root as 404.html
-          rename: '404.html'
-        }
-      ]
-    })
+    react()
   ],
+  server: {
+    host: '0.0.0.0', // 👈 Makes Vite accessible through your Vagrant port forwarding
+    port: 5173       // 👈 Optional: ensures consistent port
+  },
   build: {
     rollupOptions: {
       output: {
@@ -23,3 +17,4 @@ export default defineConfig({
     }
   }
 });
+
