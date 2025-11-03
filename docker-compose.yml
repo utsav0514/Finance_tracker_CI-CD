@@ -1,12 +1,20 @@
 services:
   backend:
     build: ./server
+    container_name: finance_pipeline-backend
     ports:
       - "5002:5002"
+    environment:
+      - MONGO_URI=mongodb+srv://utshavshrestha1713_db_user:GoY5PyDaS37wXcM3@cluster0.lzflo0l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - PORT=5002
+
   frontend:
     build: ./client
+    container_name: finance_pipeline-frontend
     ports:
       - "5173:80"
     environment:
       - VITE_API_URL=http://backend:5002
+    depends_on:
+      - backend
 
